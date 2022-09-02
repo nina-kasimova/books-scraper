@@ -3,6 +3,10 @@
 ## How to run ##
 paste the books list url to the first url line
 
+## Requirements
+
+Use `~/miniconda3/envs/nlp/python3` interpreter
+
 ## What it does ##
 The script will scrape the provided list of books and save two copies of json files:
 - one named after the list into a folder with all the data for future use (irrelevant for the app)
