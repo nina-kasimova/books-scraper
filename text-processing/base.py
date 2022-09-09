@@ -1,6 +1,5 @@
 import pandas as pd
 from nltk.tokenize import RegexpTokenizer
-from nltk import RegexpParser
 import nltk
 from collections import Counter
 
@@ -27,7 +26,8 @@ def tokenize(reviews):
     return all_tokens
 
 
-def tag_words(tokens):
+def tag_words(reviews):
+    tokens = tokenize(reviews)
     tagged = []
     for t in range(len(tokens)):
         tag = nltk.pos_tag(tokens[t])
@@ -35,8 +35,9 @@ def tag_words(tokens):
     return tagged
 
 
-# NN - nouns, JJ - adjectives, NNP doesnt really works
-def get_part_of_speech(abbreviation, tagged):
+# NN - nouns, JJ - adjectives, NNP doesnt really work
+def get_part_of_speech(abbreviation, text):
+    tagged = tag_words(text)
     final = []
     for tag in range(len(tagged)):
         final.append([t for t in tagged[tag] if t[1] == abbreviation])
@@ -44,20 +45,22 @@ def get_part_of_speech(abbreviation, tagged):
     return final
 
 
-def clean_tagged(tagged):
+def clean_tagged_text(tagged):
     only_words = []
-    for n in tagged:
+
+    for n in tagged[0]:
         only_words.append(n[0])
     return only_words
 
 
 def get_frequency(tagged_words):
     only_words = []
-    for n in tagged_words:
+    for n in tagged_words[0]:
         only_words.append(n[0])
 
     return Counter(only_words).most_common(len(only_words))
 
 
 if __name__ == '__main__':
-    print(tokenize(get_reviews(0, 1)))
+    example_text = get_reviews(0, 1)
+    frequency_of_nouns = get_frequency(get_part_of_speech('NN', example_text))

@@ -5,6 +5,7 @@ from collections import defaultdict
 import re
 import json
 
+
 session = requests.Session()
 
 # PASTE URL HERE
@@ -145,10 +146,12 @@ if __name__ == "__main__":
     books_table = pd.DataFrame(books)
     books_table['id'] = books_table.index
 
+
+
     file = books_table.to_json("data.json", orient="records")
 
     # open exported file and copy the data
-    with open('data.json', 'r') as f:
+    with open('../data.json', 'r') as f:
         data = json.load(f)
 
     filename = get_file_name(books['list_name'])
@@ -159,6 +162,6 @@ if __name__ == "__main__":
         new_data = {'books': data}
         json.dump(new_data, f)
 
-    with open('../../web/ui-data/books-list.json', 'w') as f:
+    with open('../../../web/ui-data/books-list.json', 'w') as f:
         new_data = {'books': data}
         json.dump(new_data, f)
