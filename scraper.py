@@ -5,12 +5,6 @@ from collections import defaultdict
 import re
 import json
 
-
-signin_url = "https://www.goodreads.com/user/sign_in"
-
-credentials = {'username': 'nina.kasimova@gmail.com',
-               'password': 'Password4273'}
-
 session = requests.Session()
 
 # PASTE URL HERE
