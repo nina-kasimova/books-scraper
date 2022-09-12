@@ -1,18 +1,17 @@
 import pandas as pd
-from nltk.tokenize import RegexpTokenizer
 import nltk
 from collections import Counter
 
 
 def get_first_review(file):
-    df = pd.read_csv('/Users/nina/Desktop/py/goodreads-data/books_info.csv')
+    df = pd.read_csv(file)
     reviews = df.reviews.tolist()
     return reviews[0]
 
 
 # reviews for specified books
-def get_reviews(start, end):
-    df = pd.read_json('/Users/nina/Desktop/py/books-scraper/data.json')
+def get_reviews(file, start, end):
+    df = pd.read_json(file)
     reviews = df.reviews
     return reviews[start:end].tolist()
 
@@ -26,10 +25,6 @@ def get_tokens(text):
 def tag_words(text):
     tokens = get_tokens(text)
     tagged = nltk.pos_tag(tokens)
-
-    # for t in range(len(text)):
-    #     tag = nltk.pos_tag(text[t])
-    #     tagged.append(tag)
     return tagged
 
 
@@ -55,7 +50,8 @@ def get_frequency(tagged_words):
 
 if __name__ == '__main__':
 
-    example_text = get_reviews(1, 5)
+    example_file = '/Users/nina/Desktop/py/books-scraper/data.json'
+    example_text = get_reviews(example_file, 1, 5)
     for r in example_text:
         if r:
             frequency_of_nouns = get_frequency(get_part_of_speech('NN', r))
