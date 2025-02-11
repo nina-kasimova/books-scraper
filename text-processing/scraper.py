@@ -4,8 +4,13 @@ import pandas as pd
 from collections import defaultdict
 import re
 import json
+import asyncio
+import aiohttp
 
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0"
+}
 session = requests.Session()
 
 # PASTE URL HERE
@@ -31,16 +36,18 @@ def collect_all_books(books_info):
     page = 0
     next_page = True
     count = 0
-    while next_page and page < 1:
+    while next_page:
         page += 1
         url_page = url + str(page)
-        content = session.get(url).content
-        content = content.decode("utf-8")
-        parse = BeautifulSoup(content, 'lxml')
 
-        next_page = is_next_page(parse)
-        books = parse.find_all('tr', attrs={'itemtype': 'http://schema.org/Book'})
-        list_name = parse.find('h1', attrs={'class': 'gr-h1 gr-h1--serif'}).text
+        content = session.get(url, headers=headers).content
+        content = content.decode("utf-8")
+        content = BeautifulSoup(content, 'lxml')
+
+        next_page = is_next_page(content)
+
+        books = content.find_all('tr', attrs={'itemtype': 'http://schema.org/Book'})
+        list_name = content.find('h1', attrs={'class': 'gr-h1 gr-h1--serif'}).text
         books_info['list_name'] = list_name
 
         for book in books:
@@ -145,8 +152,6 @@ if __name__ == "__main__":
 
     books_table = pd.DataFrame(books)
     books_table['id'] = books_table.index
-
-
 
     file = books_table.to_json("data.json", orient="records")
 
