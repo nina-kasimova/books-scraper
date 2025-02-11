@@ -1,0 +1,251 @@
+Index,title,year,rating,age_restr
+1, The Shawshank Redemption,1994,9.3,15
+2, The Godfather,1972,9.2,15
+3, The Dark Knight,2008,9.0,12A
+4, The Godfather Part II,1974,9.0,X
+5, 12 Angry Men,1957,9.0,U
+6, Schindler's List,1993,9.0,15
+7, The Lord of the Rings: The Return of the King,2003,9.0,12A
+8, Pulp Fiction,1994,8.9,18
+9, The Lord of the Rings: The Fellowship of the Ring,2001,8.9,PG
+10," The Good, the Bad and the Ugly",1966,8.8,18
+11, Forrest Gump,1994,8.8,12
+12, The Lord of the Rings: The Two Towers,2002,8.8,12A
+13, Fight Club,1999,8.8,15
+14, Inception,2010,8.8,12A
+15, Star Wars: Episode V - The Empire Strikes Back,1980,8.7,U
+16, The Matrix,1999,8.7,15
+17, GoodFellas,1990,8.7,18
+18, One Flew Over the Cuckoo's Nest,1975,8.7,15
+19, Seven,1995,8.6,18
+20, Interstellar,2014,8.7,12A
+21, It's a Wonderful Life,1946,8.6,U
+22, Seven Samurai,1954,8.6,PG
+23, The Silence of the Lambs,1991,8.6,18
+24, Saving Private Ryan,1998,8.6,15
+25, City of God,2002,8.6,18
+26, Life Is Beautiful,1997,8.6,PG
+27, The Green Mile,1999,8.6,18
+28, Terminator 2: Judgment Day,1991,8.6,15
+29, Star Wars: Episode IV - A New Hope,1977,8.6,U
+30, Dune: Part Two,2024,8.6,12A
+31, Back to the Future,1985,8.5,PG
+32, Spirited Away,2001,8.6,PG
+33, The Pianist,2002,8.5,15
+34, Parasite,2019,8.5,15
+35, Psycho,1960,8.5,15
+36, Gladiator,2000,8.5,15
+37, Spider-Man: Across the Spider-Verse,2023,8.6,PG
+38, The Lion King,1994,8.5,U
+39, The Departed,2006,8.5,18
+40, Leon,1994,8.5,18
+41, American History X,1998,8.5,18
+42, Whiplash,2014,8.5,15
+43, The Prestige,2006,8.5,12A
+44, Grave of the Fireflies,1988,8.5,12A
+45, Harakiri,1962,8.6,X
+46, The Usual Suspects,1995,8.5,18
+47, Casablanca,1942,8.5,U
+48, Untouchable,2011,8.5,15
+49, Cinema Paradiso,1988,8.5,PG
+50, Modern Times,1936,8.5,U
+51, Rear Window,1954,8.5,PG
+52, Once Upon a Time in the West,1968,8.5,12
+53, Alien,1979,8.5,X
+54, City Lights,1931,8.5,U
+55, Django Unchained,2012,8.5,18
+56, Apocalypse Now,1979,8.4,X
+57, Memento,2000,8.4,15
+58, 12th Fail,2023,8.9,12A
+59, WALL·E,2008,8.4,U
+60, Raiders of the Lost Ark,1981,8.4,PG
+61, The Lives of Others,2006,8.4,15
+62, Sunset Blvd,1950,8.4,PG
+63, Avengers: Infinity War,2018,8.4,12A
+64, Paths of Glory,1957,8.4,PG
+65, Spider-Man: Into the Spider-Verse,2018,8.4,PG
+66, Witness for the Prosecution,1957,8.4,U
+67, The Shining,1980,8.4,X
+68, The Great Dictator,1940,8.4,PG
+69, Aliens,1986,8.4,18
+70, Inglourious Basterds,2009,8.4,18
+71, The Dark Knight Rises,2012,8.4,12A
+72, Dr,1964,8.3,PG
+73, Coco,2017,8.4,PG
+74, Oldboy,2003,8.3,18
+75, American Beauty,1999,8.3,18
+76, Amadeus,1984,8.4,PG
+77, Toy Story,1995,8.3,PG
+78, Avengers: Endgame,2019,8.4,12A
+79, Das Boot,1981,8.4,AA
+80, Braveheart,1995,8.3,15
+81, Good Will Hunting,1997,8.3,15
+82, Princess Mononoke,1997,8.3,PG
+83, Joker,2019,8.4,15
+84, Your Name,2016,8.4,12A
+85, High and Low,1963,8.4,12
+86, Once Upon a Time in America,1984,8.3,18
+87, 3 Idiots,2009,8.4,12A
+88, Singin' in the Rain,1952,8.3,U
+89, Capernaum,2018,8.4,15
+90, Come and See,1985,8.4,15
+91, Requiem for a Dream,2000,8.3,18
+92, Toy Story 3,2010,8.3,PG
+93, Star Wars: Episode VI - Return of the Jedi,1983,8.3,PG
+94, Eternal Sunshine of the Spotless Mind,2004,8.3,15
+95, The Hunt,2012,8.3,15
+96, 2001: A Space Odyssey,1968,8.3,U
+97, Reservoir Dogs,1992,8.3,18
+98, Oppenheimer,2023,8.3,15
+99, Ikiru,1952,8.3,PG
+100, Lawrence of Arabia,1962,8.3,PG
+101, The Apartment,1960,8.3,PG
+102, Incendies,2010,8.3,15
+103, North by Northwest,1959,8.3,PG
+104, Citizen Kane,1941,8.3,A
+105, M,1931,8.3,PG
+106, Scarface,1983,8.3,18
+107, Double Indemnity,1944,8.3,A
+108, Vertigo,1958,8.3,PG
+109, Full Metal Jacket,1987,8.3,18
+110, Amélie,2001,8.3,15
+111, Heat,1995,8.3,15
+112, Up,2009,8.3,U
+113, A Clockwork Orange,1971,8.3,X
+114, To Kill a Mockingbird,1962,8.3,PG
+115, A Separation,2011,8.3,PG
+116, The Sting,1973,8.3,PG
+117, Indiana Jones and the Last Crusade,1989,8.2,PG
+118, Die Hard,1988,8.2,18
+119, Like Stars on Earth,2007,8.3,PG
+120, Metropolis,1927,8.3,PG
+121, Snatch,2000,8.2,18
+122, L,1997,8.2,18
+123, 1917,2019,8.2,15
+124, Hamilton,2020,8.3,12
+125, Bicycle Thieves,1948,8.3,U
+126, Taxi Driver,1976,8.2,18
+127, Downfall,2004,8.2,15
+128, Dangal,2016,8.3,PG
+129, For a Few Dollars More,1965,8.2,15
+130, Batman Begins,2005,8.2,12A
+131, The Wolf of Wall Street,2013,8.2,18
+132, Some Like It Hot,1959,8.2,A
+133, Green Book,2018,8.2,12A
+134, The Kid,1921,8.2,U
+135, The Father,2020,8.2,12A
+136, Judgment at Nuremberg,1961,8.3,PG
+137, The Truman Show,1998,8.2,PG
+138, All About Eve,1950,8.2,PG
+139, Top Gun: Maverick,2022,8.2,12A
+140, Shutter Island,2010,8.2,15
+141, There Will Be Blood,2007,8.2,12A
+142, Casino,1995,8.2,18
+143, Jurassic Park,1993,8.2,PG
+144, Ran,1985,8.2,15
+145, The Sixth Sense,1999,8.2,15
+146, Pan's Labyrinth,2006,8.2,15
+147, Unforgiven,1992,8.2,15
+148, No Country for Old Men,2007,8.2,15
+149, A Beautiful Mind,2001,8.2,12
+150, The Thing,1982,8.2,X
+151, Kill Bill: Vol,2003,8.2,18
+152, The Treasure of the Sierra Madre,1948,8.2,PG
+153, Yojimbo,1961,8.2,PG
+154, Monty Python and the Holy Grail,1975,8.2,12A
+155, The Great Escape,1963,8.2,PG
+156, Finding Nemo,2003,8.2,U
+157, Prisoners,2013,8.2,15
+158, Howl's Moving Castle,2004,8.2,U
+159, Rashomon,1950,8.2,X
+160, The Elephant Man,1980,8.2,PG
+161, Dial M for Murder,1954,8.2,PG
+162, Chinatown,1974,8.1,X
+163, Gone with the Wind,1939,8.2,PG
+164," Lock, Stock and Two Smoking Barrels",1998,8.1,18
+165, The Secret in Their Eyes,2009,8.2,18
+166, V for Vendetta,2005,8.2,15
+167, Inside Out,2015,8.1,U
+168, Raging Bull,1980,8.1,X
+169," Three Billboards Outside Ebbing, Missouri",2017,8.1,15
+170, Trainspotting,1996,8.1,18
+171, The Bridge on the River Kwai,1957,8.1,PG
+172, Klaus,2019,8.2,PG
+173, Fargo,1996,8.1,18
+174, Spider-Man: No Way Home,2021,8.2,12A
+175, Catch Me If You Can,2002,8.1,12A
+176, Warrior,2011,8.1,12A
+177, Gran Torino,2008,8.1,15
+178, Million Dollar Baby,2004,8.1,12A
+179, My Neighbour Totoro,1988,8.1,U
+180, Harry Potter and the Deathly Hallows: Part 2,2011,8.1,12A
+181, Children of Heaven,1997,8.2,PG
+182, 12 Years a Slave,2013,8.1,15
+183, Blade Runner,1982,8.1,AA
+184, Ben-Hur,1959,8.1,PG
+185, Before Sunrise,1995,8.1,15
+186, The Grand Budapest Hotel,2014,8.1,15
+187, Barry Lyndon,1975,8.1,PG
+188, Gone Girl,2014,8.1,18
+189, Hacksaw Ridge,2016,8.1,15
+190, Mad Max: Fury Road,2015,8.1,15
+191, The Gold Rush,1925,8.1,U
+192, Dead Poets Society,1989,8.1,PG
+193, Memories of Murder,2003,8.1,15
+194, In the Name of the Father,1993,8.1,15
+195, Wild Tales,2014,8.1,15
+196, The Deer Hunter,1978,8.1,X
+197, The General,1926,8.1,U
+198," Monsters, Inc",2001,8.1,U
+199, On the Waterfront,1954,8.1,PG
+200, Sherlock Jr,1924,8.2,U
+201, How to Train Your Dragon,2010,8.1,PG
+202, Jaws,1975,8.1,PG
+203, The Wages of Fear,1953,8.2,PG
+204, The Third Man,1949,8.1,PG
+205, Mary and Max,2009,8.1,12A
+206, Wild Strawberries,1957,8.1,PG
+207, Mr,1939,8.1,U
+208, Ratatouille,2007,8.1,PG
+209, Le Mans '66,2019,8.1,12A
+210, Tokyo Story,1953,8.1,U
+211, The Big Lebowski,1998,8.1,18
+212, Room,2015,8.1,15
+213, The Seventh Seal,1957,8.1,PG
+214, Rocky,1976,8.1,PG
+215, Logan,2017,8.1,15
+216, Spotlight,2015,8.1,15
+217, Hotel Rwanda,2004,8.1,12A
+218, The Terminator,1984,8.1,18
+219, Platoon,1986,8.1,15
+220, The Passion of Joan of Arc,1928,8.1,PG
+221, La haine,1995,8.1,15
+222, Before Sunset,2004,8.1,15
+223, The Best Years of Our Lives,1946,8.1,U
+224, Pirates of the Caribbean: The Curse of the Black Pearl,2003,8.1,12A
+225, The Exorcist,1973,8.1,X
+226, Jai Bhim,2021,8.7,Not Rated
+227, Rush,2013,8.1,15
+228, Network,1976,8.1,AA
+229, The Wizard of Oz,1939,8.1,A
+230, Stand by Me,1986,8.1,15
+231, The Incredibles,2004,8.0,U
+232, Hachi: A Dog's Tale,2009,8.1,U
+233, My Father and My Son,2005,8.2,PG
+234, The Handmaiden,2016,8.1,18
+235, Into the Wild,2007,8.1,15
+236, The Sound of Music,1965,8.1,U
+237, To Be or Not to Be,1942,8.1,U
+238, The Battle of Algiers,1966,8.1,X
+239, The Grapes of Wrath,1940,8.1,PG
+240, Groundhog Day,1993,8.0,PG
+241, Amores perros,2000,8.1,18
+242, Rebecca,1940,8.1,PG
+243, The Iron Giant,1999,8.1,PG
+244, Cool Hand Luke,1967,8.1,A
+245, The Help,2011,8.1,12A
+246, It Happened One Night,1934,8.1,A
+247, Drishyam,2015,8.2,12A
+248, Gangs of Wasseypur,2012,8.2,18
+249, Dances with Wolves,1990,8.0,PG
+250, Aladdin,1992,8.0,U
