@@ -74,7 +74,25 @@ async def run_scraper():
         books_info = await scrape_books()
         scraped_books = books_info
         scraping_status["status"] = "completed"
+
+        if not isinstance(books_info, list):
+            raise ValueError("❌ Expected books_info to be a list, but got something else.")
+
         print("✅ Scraping completed successfully!")
+
+        db = SessionLocal()
+
+        for book in books_info:
+            db_book = models.Book(
+                title=book["title"],
+                author=book["author"],
+                review_count=book["review_count"],
+                avg_rating=book["avg_rating"]
+            )
+            db.add(db_book)
+
+        db.commit()
+        db.close()
 
     except Exception as e:
         scraping_status["status"] = "error"

@@ -118,6 +118,7 @@ async def fetch_book_details(session, url):
 
 async def scrape_books():
     books_info = defaultdict(list)
+    all_books = []
 
     async with aiohttp.ClientSession() as session:
 
@@ -130,17 +131,20 @@ async def scrape_books():
             soup = BeautifulSoup(page_content, 'lxml')
             books = soup.find_all('tr', attrs={'itemtype': 'http://schema.org/Book'})
 
-
-
             for book in books:
-                books_info['title'].append(get_title(book))
-                print("TITlE: ",get_title(book) )
-                books_info['author'].append(get_author(book))
+                title = get_title(book)
+                author = get_author(book)
                 avg_rating, review_count = get_ratings(book)
-                books_info['avg_rating'].append(avg_rating)
-                books_info['review_count'].append(review_count)
 
-    return books_info
+                book_dict = {
+                    "title": title,
+                    "author": author,
+                    "avg_rating": avg_rating,
+                    "review_count": review_count
+                }
+                all_books.append(book_dict)
+
+    return all_books
 
 
 def get_title(book):
