@@ -95,7 +95,7 @@ def clean_text(words):
 
 if __name__ == '__main__':
 
-    example_file = '/Users/nina/Desktop/py/books-scraper/data.json'
+    example_file = '/goodreads-data/data.json'
     example_text = get_reviews(example_file, 1, 5)
 
     with open('/Users/nina/Desktop/datasets/naive_bayes_classifier1.pkl', 'rb') as fid:

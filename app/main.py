@@ -1,9 +1,8 @@
-from fastapi import FastAPI, BackgroundTasks, Depends, HTTPException
+from fastapi import FastAPI, BackgroundTasks, Depends
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 import models
 from scraper import scrape_books
-import pandas as pd
 from pydantic import BaseModel
 
 

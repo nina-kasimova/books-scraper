@@ -201,7 +201,7 @@ async def main():
     file = books_table.to_json("data.json", orient="records")
 
     # open exported file and copy the data
-    with open('../data.json', 'r') as f:
+    with open('../goodreads-data/data.json', 'r') as f:
         data = json.load(f)
 
     filename = get_file_name(books['list_name'])

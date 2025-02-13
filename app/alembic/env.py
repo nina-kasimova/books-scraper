@@ -25,7 +25,6 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 
 from app.models import Base  # Import your SQLAlchemy models
-from app.database import engine  # Import the database engine
 
 target_metadata = Base.metadata  # Connect Alembic to your models
 
