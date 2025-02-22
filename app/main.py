@@ -4,9 +4,18 @@ from database import SessionLocal, engine
 import models
 from scraper import scrape_books
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins (for testing)
+    allow_credentials=True,
+    allow_methods=["*"],   # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],   # Allow all headers
+)
+
 
 models.Base.metadata.create_all(bind=engine)
 
