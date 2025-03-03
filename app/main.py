@@ -95,6 +95,7 @@ async def run_scraper():
             db_book = models.Book(
                 title=book["title"],
                 author=book["author"],
+                genre=book['genre'],
                 review_count=book["review_count"],
                 avg_rating=book["avg_rating"]
             )
