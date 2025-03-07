@@ -45,12 +45,15 @@ async def fetch_all_pages(session, urls):
     return results
 
 
-def get_pages_urls(content):
+def get_pages_urls(content, user_url):
     page = 0
     next_page = True
     count = 0
-    all_urls = [url]
+    all_urls = [user_url]
     pagination = content.find('div', attrs={'class': 'pagination'})
+
+    if not pagination:
+        return all_urls
 
     pages_count = pagination.find_all('a')
     # Extract page numbers
@@ -66,7 +69,7 @@ def get_pages_urls(content):
     pages = sorted(pages)
 
     for i in range(1,max(pages)):
-        all_urls.append(url + str(i))
+        all_urls.append(user_url + str(i))
 
     return all_urls
 
@@ -116,15 +119,15 @@ async def fetch_book_details(session, url):
         return book_content
 
 
-async def scrape_books():
+async def scrape_books(user_url):
     books_info = defaultdict(list)
     all_books = []
 
     async with aiohttp.ClientSession() as session:
 
-        first_page_content = await fetch_page(session, url)
+        first_page_content = await fetch_page(session, user_url)
         first_page_content = BeautifulSoup(first_page_content, 'lxml')
-        urls = get_pages_urls(first_page_content)
+        urls = get_pages_urls(first_page_content, user_url)
         all_pages_content = await fetch_all_pages(session, urls)
 
         for page_content in all_pages_content:
@@ -135,12 +138,14 @@ async def scrape_books():
                 title = get_title(book)
                 author = get_author(book)
                 avg_rating, review_count = get_ratings(book)
+                book_link = get_link(book)
 
                 book_dict = {
                     "title": title,
                     "author": author,
                     "avg_rating": avg_rating,
-                    "review_count": review_count
+                    "review_count": review_count,
+                    "book_link": book_link
                 }
                 all_books.append(book_dict)
 
@@ -201,8 +206,8 @@ def getDescription(book):
 
 
 def get_link(book):
-    url = book.find('a', attrs={'class': 'bookTitle'})['href']
-    return url
+    link = book.find('a', attrs={'class': 'bookTitle'})['href']
+    return link
 
 
 def get_file_name(name):

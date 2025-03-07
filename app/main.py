@@ -30,7 +30,6 @@ class BookCreate(BaseModel):
     review_count: int
     avg_rating: float
 
-
 def get_db():
     db = SessionLocal()
     try:
@@ -61,11 +60,11 @@ async def get_status():
     return {"scraping_status": scraping_status["status"]}
 
 
-@app.get("/scrape")
-async def start_scraping(background_tasks: BackgroundTasks):
+@app.post("/scrape")
+async def start_scraping(url: str, background_tasks: BackgroundTasks):
     scraping_status['status'] = "in progress"
-    background_tasks.add_task(run_scraper)
-    return {"message": "Scraping started!"}
+    background_tasks.add_task(run_scraper, url)
+    return {"message": "Scraping started!", "url": url}
 
 
 @app.get("/books")
@@ -75,12 +74,12 @@ async def get_books():
     return scraped_books
 
 
-async def run_scraper():
+async def run_scraper(url):
     global scraped_books
     print("🚀 Scraping started...")
 
     try:
-        books_info = await scrape_books()
+        books_info = await scrape_books(url)
         scraped_books = books_info
         scraping_status["status"] = "completed"
 
@@ -92,10 +91,22 @@ async def run_scraper():
         db = SessionLocal()
 
         for book in books_info:
+            # Check if book already exists before inserting
+            existing_book = db.query(models.Book).filter(
+                models.Book.title == book["title"],
+                models.Book.author == book["author"]
+            ).first()
+
+            if existing_book:
+                print(f"⚠️ Skipping duplicate: {book['title']} by {book['author']}")
+                continue  # Skip duplicates
+
+            print(f"✅ Inserting: {book['title']} by {book['author']}")
+            # Insert new book if it's not a duplicate
             db_book = models.Book(
                 title=book["title"],
                 author=book["author"],
-                genre=book['genre'],
+                genre=book.get('genre', None),
                 review_count=book["review_count"],
                 avg_rating=book["avg_rating"]
             )

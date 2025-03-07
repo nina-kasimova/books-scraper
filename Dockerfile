@@ -17,5 +17,5 @@ COPY . .
 EXPOSE 8000
 
 # Run FastAPI when the container starts
-CMD ["fastapi", "dev", "app/main.py", "--host", "0.0.0.0"]
+CMD ["fastapi", "dev", "app/main.py", "--host", "0.0.0.0","--reload"]
 

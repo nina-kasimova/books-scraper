@@ -15,4 +15,4 @@ class Book(Base):
     description = Column(Text)
     url = Column(String)
 
-    __table_args__ = (UniqueConstraint("title", "author", name="unique_book"),)
+    # __table_args__ = (UniqueConstraint("title", "author", name="unique_book"),)
