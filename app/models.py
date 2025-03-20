@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, Text, UniqueConstraint
+from sqlalchemy import Column, Integer, String, Float, Text, UniqueConstraint, ForeignKey
+from sqlalchemy.orm import relationship
+
 from database import Base
 
 
@@ -14,5 +16,15 @@ class Book(Base):
     review_count = Column(Integer)
     description = Column(Text)
     url = Column(String)
+    list_id = Column(Integer, ForeignKey("lists.id", ondelete="CASCADE"), nullable=False)
+
+    list = relationship("BookList")
 
     # __table_args__ = (UniqueConstraint("title", "author", name="unique_book"),)
+
+
+class BookList(Base):
+    __tablename__ = "lists"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, nullable=False)

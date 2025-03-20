@@ -1,10 +1,12 @@
 from fastapi import FastAPI, BackgroundTasks, Depends
 from sqlalchemy.orm import Session
+import schemas
 from database import SessionLocal, engine
 import models
 from scraper import scrape_books
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+import crud
 
 
 app = FastAPI()
@@ -23,13 +25,6 @@ scraped_books = []
 scraping_status = {"status": "idle"}
 
 
-class BookCreate(BaseModel):
-    title: str
-    author: str
-    genre: str
-    review_count: int
-    avg_rating: float
-
 def get_db():
     db = SessionLocal()
     try:
@@ -38,14 +33,23 @@ def get_db():
         db.close()
 
 
-@app.post("/add_book")
-def create_book(book: BookCreate, db: Session = Depends(get_db)):
-    db_book = models.Book(title=book.title, author=book.author, genre=book.genre, review_count=book.review_count, avg_rating=book.avg_rating)
-    db.add(db_book)
-    db.commit()
-    db.refresh(db_book)
+@app.post("/add_list")
+def create_list(list_data: schemas.ListCreate, db: Session = Depends(get_db)):
+    db_list = crud.create_list(db, list_data.name)
+    return db_list
 
-    print(f"Book added: {db_book.title} by {db_book.author}")
+@app.get("/lists")
+def get_lists(db: Session = Depends(get_db)):
+    return crud.get_all_lists(db)
+
+@app.get("/list_by_id")
+def get_list_byId(list_id: int, db: Session = Depends(get_db)):
+    return crud.get_list(db, list_id)
+
+
+@app.post("/add_book")
+def create_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
+    db_book = crud.create_book(db, book)
 
     return db_book
 
@@ -72,6 +76,10 @@ async def get_books():
     if not scraped_books:
         return {"message": "No books scraped yet. Please run /scrape first."}
     return scraped_books
+
+@app.get("/all_books")
+async def get_books(db: Session = Depends(get_db)):
+    return crud.get_all_books(db)
 
 
 async def run_scraper(url):
