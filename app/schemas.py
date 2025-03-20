@@ -7,6 +7,7 @@ class BookCreate(BaseModel):
     genre: str
     review_count: int
     avg_rating: float
+    url: str
     list_id: int
 
 class ListCreate(BaseModel):

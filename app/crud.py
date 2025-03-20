@@ -42,4 +42,6 @@ def get_all_books(db:Session):
     return result
 
 def get_books_by_list(db: Session, list_id: int):
-    return db.query(models.Book).filter(models.Book.list_id == list_id).all()
+    stmt = select(models.Book).where(models.Book.list_id == list_id)
+    result = db.execute(stmt).scalars().all()
+    return result

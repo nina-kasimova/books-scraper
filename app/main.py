@@ -1,4 +1,5 @@
 from fastapi import FastAPI, BackgroundTasks, Depends
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 import schemas
 from database import SessionLocal, engine
@@ -65,10 +66,10 @@ async def get_status():
 
 
 @app.post("/scrape")
-async def start_scraping(url: str, background_tasks: BackgroundTasks):
+async def start_scraping(url: str, list_id: int, background_tasks: BackgroundTasks):
     scraping_status['status'] = "in progress"
-    background_tasks.add_task(run_scraper, url)
-    return {"message": "Scraping started!", "url": url}
+    background_tasks.add_task(run_scraper, url, list_id)
+    return {"message": "Scraping started!", "url": url, "list ID": list_id}
 
 
 @app.get("/books")
@@ -77,12 +78,16 @@ async def get_books():
         return {"message": "No books scraped yet. Please run /scrape first."}
     return scraped_books
 
+@app.get("/get_books_byList")
+async def get_books_byList(list_id: int, db: Session = Depends(get_db)):
+    return crud.get_books_by_list(db, list_id)
+
 @app.get("/all_books")
 async def get_books(db: Session = Depends(get_db)):
     return crud.get_all_books(db)
 
 
-async def run_scraper(url):
+async def run_scraper(url, list_id=1):
     global scraped_books
     print("🚀 Scraping started...")
 
@@ -100,10 +105,10 @@ async def run_scraper(url):
 
         for book in books_info:
             # Check if book already exists before inserting
-            existing_book = db.query(models.Book).filter(
+            existing_book = db.execute(select(models.Book).where(
                 models.Book.title == book["title"],
-                models.Book.author == book["author"]
-            ).first()
+                models.Book.list_id == list_id
+            )).fetchone()
 
             if existing_book:
                 print(f"⚠️ Skipping duplicate: {book['title']} by {book['author']}")
@@ -116,7 +121,9 @@ async def run_scraper(url):
                 author=book["author"],
                 genre=book.get('genre', None),
                 review_count=book["review_count"],
-                avg_rating=book["avg_rating"]
+                avg_rating=book["avg_rating"],
+                url=book["book_link"],
+                list_id=list_id
             )
             db.add(db_book)
 
