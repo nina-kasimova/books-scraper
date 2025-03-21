@@ -16,6 +16,7 @@ class Book(Base):
     review_count = Column(Integer)
     description = Column(Text)
     url = Column(String)
+    cover_url = Column(String)
     list_id = Column(Integer, ForeignKey("lists.id", ondelete="CASCADE"), nullable=False)
 
     list = relationship("BookList")

@@ -123,6 +123,7 @@ async def run_scraper(url, list_id=1):
                 review_count=book["review_count"],
                 avg_rating=book["avg_rating"],
                 url=book["book_link"],
+                cover_url=book["cover_url"],
                 list_id=list_id
             )
             db.add(db_book)
