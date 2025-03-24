@@ -120,7 +120,6 @@ async def fetch_book_details(session, url):
 
 
 async def scrape_books(user_url):
-    books_info = defaultdict(list)
     all_books = []
 
     async with aiohttp.ClientSession() as session:
@@ -149,9 +148,9 @@ async def scrape_books(user_url):
                     "book_link": book_link,
                     "cover_url": book_cover_url
                 }
-                all_books.append(book_dict)
 
-    return all_books
+                # Yield each book one by one
+                yield book_dict
 
 
 def get_title(book):
