@@ -67,6 +67,9 @@ async def get_status():
 
 @app.post("/scrape")
 async def start_scraping(url: str, list_id: int, background_tasks: BackgroundTasks):
+    if scraping_status['status'] == "in progress":
+        return {"message": "Scraping is already in progress. Please wait until it's completed."}
+
     scraping_status['status'] = "in progress"
     background_tasks.add_task(run_scraper, url, list_id)
     return {"message": "Scraping started!", "url": url, "list ID": list_id}
@@ -86,49 +89,58 @@ async def get_books_byList(list_id: int, db: Session = Depends(get_db)):
 async def get_books(db: Session = Depends(get_db)):
     return crud.get_all_books(db)
 
+@app.post("/edit_list_name")
+async def edit_list_name(list_id: int, new_name:str, db: Session = Depends(get_db)):
+    return crud.update_list_name(db, list_id, new_name)
+
+@app.post("/delete_list")
+async def delete_list(list_id: int, db: Session = Depends(get_db)):
+    return crud.delete_list(db, list_id)
 
 async def run_scraper(url, list_id=1):
     global scraped_books
     print("🚀 Scraping started...")
 
     try:
-        books_info = await scrape_books(url)
-        scraped_books = books_info
+        async for book in scrape_books(url):
+            db = SessionLocal()
+            try:
+
+                # Check if book already exists before inserting
+                existing_book = db.execute(select(models.Book).where(
+                    models.Book.title == book["title"],
+                    models.Book.list_id == list_id
+                )).fetchone()
+
+                if existing_book:
+                    print(f"⚠️ Skipping duplicate: {book['title']} by {book['author']}")
+                    continue
+
+                scraped_books.append(book)
+
+                print(f"✅ Inserting: {book['title']} by {book['author']}")
+                # Insert new book if it's not a duplicate
+                db_book = models.Book(
+                    title=book["title"],
+                    author=book["author"],
+                    genre=book.get('genre', None),
+                    review_count=book["review_count"],
+                    avg_rating=book["avg_rating"],
+                    url=book["book_link"],
+                    cover_url=book["cover_url"],
+                    list_id=list_id
+                )
+                db.add(db_book)
+
+                db.commit()
+            except Exception as e:
+                print(f"❌ Error processing {book['title']}: {e}")
+                db.rollback()
+            finally:
+                db.close()
+
         scraping_status["status"] = "completed"
-
-        if not isinstance(books_info, list):
-            raise ValueError("❌ Expected books_info to be a list, but got something else.")
-
         print("✅ Scraping completed successfully!")
-
-        db = SessionLocal()
-
-        for book in books_info:
-            # Check if book already exists before inserting
-            existing_book = db.execute(select(models.Book).where(
-                models.Book.title == book["title"],
-                models.Book.list_id == list_id
-            )).fetchone()
-
-            if existing_book:
-                print(f"⚠️ Skipping duplicate: {book['title']} by {book['author']}")
-                continue  # Skip duplicates
-
-            print(f"✅ Inserting: {book['title']} by {book['author']}")
-            # Insert new book if it's not a duplicate
-            db_book = models.Book(
-                title=book["title"],
-                author=book["author"],
-                genre=book.get('genre', None),
-                review_count=book["review_count"],
-                avg_rating=book["avg_rating"],
-                url=book["book_link"],
-                list_id=list_id
-            )
-            db.add(db_book)
-
-        db.commit()
-        db.close()
 
     except Exception as e:
         scraping_status["status"] = "error"
