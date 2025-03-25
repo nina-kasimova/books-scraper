@@ -89,6 +89,13 @@ async def get_books_byList(list_id: int, db: Session = Depends(get_db)):
 async def get_books(db: Session = Depends(get_db)):
     return crud.get_all_books(db)
 
+@app.post("/edit_list_name")
+async def edit_list_name(list_id: int, new_name:str, db: Session = Depends(get_db)):
+    return crud.update_list_name(db, list_id, new_name)
+
+@app.post("/delete_list")
+async def delete_list(list_id: int, db: Session = Depends(get_db)):
+    return crud.delete_list(db, list_id)
 
 async def run_scraper(url, list_id=1):
     global scraped_books
