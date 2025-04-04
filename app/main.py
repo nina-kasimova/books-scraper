@@ -51,32 +51,31 @@ def get_recommendations(prompt: str):
 
     return response.json()
 
-@app.post("/test_google")
-def get_book_info(book_title):
+
+@app.post("/get_google_info")
+def get_google_info(book_title):
     url = f'https://www.googleapis.com/books/v1/volumes?q={book_title}'
     response = requests.get(url)
     data = response.json()
 
     if 'items' in data:
         book = data['items'][0]['volumeInfo']
-        title = book.get('title', 'No title')
-        author = ', '.join(book.get('authors', ['Unknown author']))
         genre = ', '.join(book.get('categories', ['No genre']))
         description = book.get('description', 'No description available.')
+        if 'imageLinks' in book:
+            cover_url = book['imageLinks'].get('thumbnail', 'No cover image')
+        else:
+            cover_url = 'No cover image'
+        page_count = book.get('pageCount', 'No page count')
 
         return {
-            'title': title,
-            'author': author,
             'genre': genre,
-            'description': description
+            'description': description,
+            'cover_url': cover_url,
+            'page_count': page_count
         }
     else:
         return None
-
-
-book_info = get_book_info('The Catcher in the Rye')
-print(book_info)
-
 
 @app.post("/add_list")
 def create_list(list_data: schemas.ListCreate, db: Session = Depends(get_db)):
