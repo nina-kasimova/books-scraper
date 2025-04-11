@@ -8,7 +8,12 @@ from scraper import scrape_books
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import crud
+import requests
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+TOGETHERAI_TOKEN = os.environ.get("TOGETHERAI_TOKEN")
 
 app = FastAPI()
 app.add_middleware(
@@ -33,6 +38,44 @@ def get_db():
     finally:
         db.close()
 
+API_URL = "https://api.together.xyz/v1/chat/completions"
+HEADERS = {"Authorization": f"Bearer {TOGETHERAI_TOKEN}"}
+
+@app.post("/get_recommendations")
+def get_recommendations(prompt: str):
+    data = {
+        "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+        "messages": [{"role": "user", "content": prompt}]
+    }
+    response = requests.post(API_URL, json=data, headers=HEADERS)
+
+    return response.json()
+
+
+@app.post("/get_google_info")
+def get_google_info(book_title):
+    url = f'https://www.googleapis.com/books/v1/volumes?q={book_title}'
+    response = requests.get(url)
+    data = response.json()
+
+    if 'items' in data:
+        book = data['items'][0]['volumeInfo']
+        genre = ', '.join(book.get('categories', ['No genre']))
+        description = book.get('description', 'No description available.')
+        if 'imageLinks' in book:
+            cover_url = book['imageLinks'].get('thumbnail', 'No cover image')
+        else:
+            cover_url = 'No cover image'
+        page_count = book.get('pageCount', 'No page count')
+
+        return {
+            'genre': genre,
+            'description': description,
+            'cover_url': cover_url,
+            'page_count': page_count
+        }
+    else:
+        return None
 
 @app.post("/add_list")
 def create_list(list_data: schemas.ListCreate, db: Session = Depends(get_db)):
